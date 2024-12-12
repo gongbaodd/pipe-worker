@@ -4,6 +4,7 @@
 import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Button } from "@/components/ui/button"
+import type P5 from "p5"
 
 // Dynamically import react-p5 to avoid SSR issues
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
@@ -25,12 +26,16 @@ export default function InfiniteCanvas() {
   let lastX: number
   let lastY: number
 
-  const setup = (p5: any, canvasParentRef: Element) => {
+  const setup = (_p5: any, canvasParentRef: Element) => {
+    const p5: P5 = _p5
+
     p5.createCanvas(800, 600).parent(canvasParentRef)
     p5.frameRate(60)
   }
 
-  const draw = (p5: any) => {
+  const draw = (_p5: any) => {
+    const p5: P5 = _p5
+
     p5.background(240)
 
     // Apply the offset to move the entire canvas
@@ -54,7 +59,9 @@ export default function InfiniteCanvas() {
     })
   }
 
-  const mousePressed = (p5: any) => {
+  const mousePressed = (_p5: any) => {
+    const p5: P5 = _p5
+
     isDragging = true
     lastX = p5.mouseX
     lastY = p5.mouseY
@@ -64,7 +71,9 @@ export default function InfiniteCanvas() {
     isDragging = false
   }
 
-  const mouseDragged = (p5: any) => {
+  const mouseDragged = (_p5: any) => {
+    const p5: P5 = _p5
+
     if (isDragging) {
       offsetX += p5.mouseX - lastX
       offsetY += p5.mouseY - lastY
