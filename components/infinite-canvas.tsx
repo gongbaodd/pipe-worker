@@ -19,7 +19,6 @@ interface Block {
 export default function InfiniteCanvas() {
   const [blocks, setBlocks] = useState<Block[]>([])
 
-  let canvas: any
   let offsetX = 0
   let offsetY = 0
   let isDragging = false
@@ -27,7 +26,7 @@ export default function InfiniteCanvas() {
   let lastY: number
 
   const setup = (p5: any, canvasParentRef: Element) => {
-    canvas = p5.createCanvas(800, 600).parent(canvasParentRef)
+    p5.createCanvas(800, 600).parent(canvasParentRef)
     p5.frameRate(60)
   }
 
