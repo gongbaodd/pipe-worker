@@ -32,9 +32,11 @@ export default class System {
 
     const grid = e.getComponent(Grid)!;
 
+    p.push();
+
     for (let i = 0; i < grid.rows; i++) {
       for (let j = 0; j < grid.cols; j++) {
-        p.fill("#F00");
+        p.fill("#FFF");
         p.stroke(0);
         p.rect(
           j * grid.tileSize,
@@ -44,5 +46,7 @@ export default class System {
         );
       }
     }
+
+    p.pop();
   }
 }

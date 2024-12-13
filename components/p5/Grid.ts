@@ -2,7 +2,7 @@ export default class Grid {
     rows: number
     cols: number
     grid: number[][]
-    tileSize = 10
+    tileSize = 40
 
     constructor(width: number, height: number) {
         const rows = Math.floor(height / this.tileSize);
