@@ -13,6 +13,7 @@ export default function Home() {
         <Image src="/t2.png" alt="tri-2" width={100} height={100} />
         <Image src="/t3.png" alt="tri-3" width={100} height={100} />
         <Image src="/t4.png" alt="tri-4" width={100} height={100} />
+        <Image src="/boom.png" alt="tri-4" width={100} height={100} />
       </div>
       <div className='flex flex-row'>
         <Image src="/civilan.png" alt="arc1" width={100} height={100} />  
