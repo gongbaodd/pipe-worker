@@ -5,6 +5,9 @@ export default function Home() {
   return (
     <main className="">
       <h1 className="text-4xl font-bold mb-8">Pipe workers</h1>
+      <p>
+        total money: 1000
+      </p>
       <div className='flex flex-row'>
         <Image src="/cross.png" alt="cross" width={100} height={100} />
         <Image src="/h.png" alt='horizontal' width={100} height={100} />
