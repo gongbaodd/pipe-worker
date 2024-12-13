@@ -11,7 +11,7 @@ export default class System {
   entities: Entity[] = [];
   p5: p5 | null = null;
 
-  constructor() {}
+  constructor() { }
 
   setup(p: p5, e: Entity[]) {
     this.entities = e;
@@ -28,17 +28,21 @@ export default class System {
     });
   }
 
-  click() {
+  click(currentCard: TileType | null, resetCard: () => void) {
     if (!this.p5) return;
     const p = this.p5;
+    if (currentCard) {
+      this.entities.forEach((e) => {
+        this.clickGrid(p, e, currentCard);
+      });
 
-    this.entities.forEach((e) => {
-      this.clickGrid(p, e);
-    });
+      resetCard();
+    }
   }
 
-  clickGrid(p: p5, e: Entity) {
+  clickGrid(p: p5, e: Entity, currentCard: TileType | null) {
     if (!e.hasComponent(Grid)) return
+    if (!currentCard) return
     const grid = e.getComponent(Grid)!;
     const user = e.getComponent(User)!;
 
@@ -52,17 +56,8 @@ export default class System {
     const gridX = Math.floor(x / grid.tileSize)
     const gridY = Math.floor(y / grid.tileSize)
 
-    // const addTypes = [
-    //   TileType.horizontal, TileType.vertical, TileType.cross,
-    //   TileType.arc1, TileType.arc2, TileType.arc3, TileType.arc4
-    // ]
-
-    try {
-      if (grid.grid[gridY][gridX].type === TileType.empty) {
-        grid.put(gridX, gridY, TileType.arc4, user.id)
-      }
-    } catch(e) {
-      console.error(e)
+    if (grid.grid[gridY][gridX].type === TileType.empty) {
+      grid.put(gridX, gridY, currentCard, user.id)
     }
 
     p.redraw()
@@ -162,22 +157,22 @@ export default class System {
     p.pop();
 
 
-   /* cross
-    p.push()
-    // draw a square with a straight line inside
-    p.fill("#FFF")
-    p.stroke(0)
-    p.rect(0, 0, 40, 40)
-
-    p.fill("#F00")
-    p.stroke("#0F0")
-    p.strokeWeight(5)
-    p.line(0, 20, 40, 20)
-
-    p.line(20, 0, 20, 40)
-
-    p.pop()
-    */
+    /* cross
+     p.push()
+     // draw a square with a straight line inside
+     p.fill("#FFF")
+     p.stroke(0)
+     p.rect(0, 0, 40, 40)
+ 
+     p.fill("#F00")
+     p.stroke("#0F0")
+     p.strokeWeight(5)
+     p.line(0, 20, 40, 20)
+ 
+     p.line(20, 0, 20, 40)
+ 
+     p.pop()
+     */
     /** arc
     p.push()
     p.fill("#F00")

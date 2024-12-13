@@ -17,7 +17,6 @@ export default function Home() {
   const setCards = useUserStore((state) => state.setCards);
   const addCard = useUserStore((state) => state.addCard);
   const useCard = useUserStore((state) => state.useCard);
-  const resetCard = useUserStore((state) => state.resetCard);
   const currentCard = useUserStore((state) => state.currentCard);
 
   useEffect(() => {

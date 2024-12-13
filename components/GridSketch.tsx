@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useCallback } from "react";
 import p5Types from "p5"; // Import p5 types
 import Grid, { TileType } from "./p5/Grid";
 import Entity from "./p5/Entity";
@@ -7,11 +7,16 @@ import System, { IDS } from "./p5/System";
 import User from "./p5/User";
 import dynamic from "next/dynamic";
 import Card from "./p5/Card";
+import { useUserStore } from "@/store/user";
 
 const Sketch = dynamic(() => import("react-p5"), { ssr: false });
 
 const GridSketch: React.FC = () => {
   const system = new System();
+
+  const resetCard = useUserStore((state) => state.resetCard);
+  const currentCard = useUserStore((state) => state.currentCard);
+  
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     p5.createCanvas(800, 600).parent(canvasParentRef);
@@ -45,9 +50,9 @@ const GridSketch: React.FC = () => {
   };
 
 
-  const mousePressed = () => {
-    system.click();
-  };
+  const mousePressed = useCallback(() => {
+    system.click(currentCard, resetCard);
+  }, [currentCard, resetCard, system]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <Sketch setup={setup as any} draw={draw as any} mousePressed={mousePressed as any} />;
