@@ -6,6 +6,7 @@ import Entity from "./p5/Entity";
 import System, { IDS } from "./p5/System";
 import User from "./p5/User";
 import dynamic from "next/dynamic";
+import Card from "./p5/Card";
 
 const Sketch = dynamic(() => import("react-p5"), { ssr: false });
 
@@ -25,10 +26,12 @@ const GridSketch: React.FC = () => {
       const y = gridComponent.grid.indexOf(randomRow);
       const x = randomRow.indexOf(randomCol);
       const userComponent = new User(x, y);
+      const cardComponent = new Card();
       gridComponent.occupy(x, y, userComponent.id);
-      
+
       gridEntity.addComponent(gridComponent);
       gridEntity.addComponent(userComponent);
+      gridEntity.addComponent(cardComponent);
       entities.push(gridEntity);
     }
 

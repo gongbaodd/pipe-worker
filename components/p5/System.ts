@@ -30,17 +30,14 @@ export default class System {
 
   click() {
     if (!this.p5) return;
-
     const p = this.p5;
-    const x = p.mouseX
-    const y = p.mouseY
 
     this.entities.forEach((e) => {
-      this.cickGrid(p, e);
+      this.clickGrid(p, e);
     });
   }
 
-  cickGrid(p: p5, e: Entity) {
+  clickGrid(p: p5, e: Entity) {
     if (!e.hasComponent(Grid)) return
     const grid = e.getComponent(Grid)!;
     const user = e.getComponent(User)!;
@@ -52,7 +49,7 @@ export default class System {
     const gridY = Math.floor(y / grid.tileSize)
 
     if (grid.grid[gridY][gridX].type === TileType.empty) {
-      grid.occupy(gridX, gridY, user.id)
+      grid.put(gridX, gridY, TileType.cross , user.id)
     }
 
     p.redraw()
@@ -63,7 +60,6 @@ export default class System {
     if (!e.hasComponent(User)) return
 
     const grid = e.getComponent(Grid)!;
-    const user = e.getComponent(User)!;
 
     p.push();
 
@@ -78,25 +74,41 @@ export default class System {
           grid.tileSize,
           grid.tileSize
         );
+
+        if (tile.type === TileType.vertical) {
+          p.push()
+          p.translate(j * grid.tileSize, i * grid.tileSize)
+          p.stroke(grid.strokeColor)
+          p.strokeWeight(5)
+          p.line(20, 0, 20, 40)
+          p.pop()
+        }
+
+        if (tile.type === TileType.horizontal) {
+          p.push()
+          p.translate(j * grid.tileSize, i * grid.tileSize)
+          p.stroke(grid.strokeColor)
+          p.strokeWeight(5)
+          p.line(0, 20, 40, 20)
+          p.pop()
+        }
+
+        if (tile.type === TileType.cross) {
+          p.push()
+          p.translate(j * grid.tileSize, i * grid.tileSize)
+          p.stroke(grid.strokeColor)
+
+          p.strokeWeight(5)
+          p.line(0, 20, 40, 20)
+          p.line(20, 0, 20, 40)
+          p.pop()
+        }
       }
     }
 
     p.pop();
 
-    /* straight
-    p.push()
-    // draw a square with a straight line inside
-    p.fill("#FFF")
-    p.stroke(0)
-    p.rect(0, 0, 40, 40)
 
-    p.fill("#F00")
-    p.stroke("#0F0")
-    p.strokeWeight(5)
-    p.line(0, 20, 40, 20)
-
-    p.pop()
-    */
    /* cross
     p.push()
     // draw a square with a straight line inside
