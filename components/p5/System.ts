@@ -48,8 +48,13 @@ export default class System {
     const gridX = Math.floor(x / grid.tileSize)
     const gridY = Math.floor(y / grid.tileSize)
 
+    const addTypes = [
+      TileType.horizontal, TileType.vertical, TileType.cross,
+      TileType.arc1, TileType.arc2, TileType.arc3, TileType.arc4
+    ]
+
     if (grid.grid[gridY][gridX].type === TileType.empty) {
-      grid.put(gridX, gridY, TileType.cross , user.id)
+      grid.put(gridX, gridY, TileType.arc4, user.id)
     }
 
     p.redraw()
@@ -101,6 +106,46 @@ export default class System {
           p.strokeWeight(5)
           p.line(0, 20, 40, 20)
           p.line(20, 0, 20, 40)
+          p.pop()
+        }
+
+        if (tile.type === TileType.arc1) {
+          p.push()
+          p.translate(j * grid.tileSize, i * grid.tileSize)
+          p.stroke(grid.strokeColor)
+          p.strokeWeight(5)
+          p.line(0, 20, 20, 20)
+          p.line(20, 20, 20, 0)
+          p.pop()
+        }
+
+        if (tile.type === TileType.arc2) {
+          p.push()
+          p.translate(j * grid.tileSize, i * grid.tileSize)
+          p.stroke(grid.strokeColor)
+          p.strokeWeight(5)
+          p.line(20, 0, 20, 20)
+          p.line(20, 20, 40, 20)
+          p.pop()
+        }
+
+        if (tile.type === TileType.arc3) {
+          p.push()
+          p.translate(j * grid.tileSize, i * grid.tileSize)
+          p.stroke(grid.strokeColor)
+          p.strokeWeight(5)
+          p.line(20, 20, 40, 20)
+          p.line(20, 20, 20, 40)
+          p.pop()
+        }
+
+        if (tile.type === TileType.arc4) {
+          p.push()
+          p.translate(j * grid.tileSize, i * grid.tileSize)
+          p.stroke(grid.strokeColor)
+          p.strokeWeight(5)
+          p.line(20, 20, 20, 40)
+          p.line(0, 20, 20, 20)
           p.pop()
         }
       }
