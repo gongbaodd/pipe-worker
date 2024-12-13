@@ -45,6 +45,10 @@ export default class System {
     const x = p.mouseX
     const y = p.mouseY
 
+    if (x > 800) return;
+    if (y < 0) return;
+    if (y > 600) return;
+
     const gridX = Math.floor(x / grid.tileSize)
     const gridY = Math.floor(y / grid.tileSize)
 

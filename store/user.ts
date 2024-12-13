@@ -19,12 +19,18 @@ export const useUserStore = create<{
     money: number, 
     residents: ResType[],
     cards: TileType[],
+    currentCard: TileType | null,
     setResidents: () => void,
     setCards: () => void,
+    addCard: () => void,
+    useCard: (card: TileType) => void,
+    resetCard: () => void,
+    cutMoney: (amount: number) => void
 }>((set) => ({
     money: 1000,
     residents: [],
     cards: [],
+    currentCard: null,
     setResidents: () => set((state) => ({
         ...state,
         residents: [
@@ -33,7 +39,10 @@ export const useUserStore = create<{
             allResTypes[Math.floor(Math.random() * allResTypes.length)]
         ]
     })),
-    cutMoney: (amount: number) => set((state) => ({ money: state.money - amount })),
+    cutMoney: (amount: number) => set((state) => ({
+        ...state,
+        money: state.money - amount, 
+    })),
     setCards: () => set((state) => ({
         ...state,
         cards: [
@@ -41,5 +50,20 @@ export const useUserStore = create<{
             allCardTypes[Math.floor(Math.random() * allCardTypes.length)],
             allCardTypes[Math.floor(Math.random() * allCardTypes.length)],
         ] 
+    })),
+    addCard: () => set((state) => ({
+        ...state,
+        money: state.money - 100,
+        cards: [...state.cards, 
+            allCardTypes[Math.floor(Math.random() * allCardTypes.length)],
+        ]
+    })),
+    useCard: (card: TileType) => set((state) => ({
+        ...state,
+        currentCard: card,
+    })),
+    resetCard: () => set((state) => ({
+        ...state,
+        currentCard: null,
     }))
 }))

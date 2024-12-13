@@ -10,10 +10,15 @@ import { useEffect } from 'react';
 
 export default function Home() {
   const money = useUserStore((state) => state.money);
+  const cutMoney = useUserStore((state) => state.cutMoney);
   const setResidents = useUserStore((state) => state.setResidents);
   const residents = useUserStore((state) => state.residents);
   const cards = useUserStore((state) => state.cards);
   const setCards = useUserStore((state) => state.setCards);
+  const addCard = useUserStore((state) => state.addCard);
+  const useCard = useUserStore((state) => state.useCard);
+  const resetCard = useUserStore((state) => state.resetCard);
+  const currentCard = useUserStore((state) => state.currentCard);
 
   useEffect(() => {
     setResidents()
@@ -32,45 +37,124 @@ export default function Home() {
             if (card === TileType.cross) {
               return <Card key={i}>
                 <Image src="/cross.png" alt="cross" width={100} height={100} />
+                <Button onClick={() => {
+                  cutMoney(200)
+                  useCard(card)
+                }}>
+                  pay 200 to use it
+                </Button>
               </Card>
             }
 
             if (card === TileType.horizontal) {
               return <Card key={i}>
                 <Image src="/h.png" alt='horizontal' width={100} height={100} />
+                <Button onClick={
+                  () => {
+                    cutMoney(100)
+                    useCard(card)
+                  }
+                }>
+                  pay 100 to use it
+                </Button>
               </Card>
             }
 
             if (card === TileType.vertical) {
               return <Card key={i}>
                 <Image src="/v.png" alt="verical" width={100} height={100} />
+                <Button onClick={
+                  () => {
+                    cutMoney(100)
+                    useCard(card)
+                  }
+                }>
+                  pay 100 to use it
+                </Button>
               </Card>
             }
 
             if (card === TileType.arc1) {
               return <Card key={i}><Image src="/t1.png" alt="tri-1" width={100} height={100} />
+                <Button onClick={
+                  () => {
+                    cutMoney(150)
+                    useCard(card)
+                  }
+                }>
+                  pay 150 to use it
+                </Button>
               </Card>
             }
 
             if (card === TileType.arc2) {
               return <Card key={i}><Image src="/t2.png" alt="tri-2" width={100} height={100} />
+                <Button onClick={
+                  () => {
+                    cutMoney(100)
+                    useCard(card)
+                  }
+                }>
+                  pay 150 to use it
+                </Button>
               </Card>
             }
 
             if (card === TileType.arc3) {
               return <Card key={i}><Image src="/t3.png" alt="tri-3" width={100} height={100} />
+                <Button onClick={
+                  () => {
+                    cutMoney(100)
+                    useCard(card)
+                  }
+                }>
+                  pay 150 to use it
+                </Button>
               </Card>
             }
 
             if (card === TileType.arc4) {
               return <Card key={i}><Image src="/t4.png" alt="tri-4" width={100} height={100} />
+                <Button onClick={
+                  () => {
+                    cutMoney(100)
+                    useCard(card)
+                  }
+                }>
+                  pay 150 to use it
+                </Button>
               </Card>
             }
           })
         }
       </div>
 
-      <Button onClick={() => { }}>-100 to buy a new card</Button>
+      <Button onClick={addCard}>-100 to buy a new card</Button>
+
+      <div>
+        <h2>Current Card</h2>
+        {currentCard && <Card>
+           {(currentCard === TileType.cross) && (
+                <Image src="/cross.png" alt="cross" width={100} height={100} />
+           )}
+
+            {(currentCard === TileType.horizontal) && (
+                <Image src="/h.png" alt='horizontal' width={100} height={100} />
+              )}
+
+           {(currentCard === TileType.vertical) && (
+                <Image src="/v.png" alt="verical" width={100} height={100} />
+                )}
+
+            {(currentCard === TileType.arc1) && (<Image src="/t1.png" alt="tri-1" width={100} height={100} />)}
+
+            {(currentCard === TileType.arc2) && (<Image src="/t2.png" alt="tri-2" width={100} height={100} />)}
+
+            {(currentCard === TileType.arc3) && (<Image src="/t3.png" alt="tri-3" width={100} height={100} />)}
+
+            {(currentCard === TileType.arc4) && (<Image src="/t4.png" alt="tri-4" width={100} height={100} />)}
+          </Card>}
+      </div>
 
       <div className='flex flex-row'>
         {residents.map((res, i) => {
@@ -78,14 +162,14 @@ export default function Home() {
             return <Card key={i}>
               <Image src="/civilan.png" alt="arc1" width={100} height={100} />
               <p>
-                every turn money +1 
+                every turn money +1
               </p>
             </Card>
           }
           if (res === ResType.worker) {
             return <Card key={i}><Image src="/worker.png" alt="arc1" width={100} height={100} />
               <p>
-                every turn money +10 
+                every turn money +10
               </p>
             </Card>
           }
