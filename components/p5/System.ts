@@ -36,7 +36,7 @@ export default class System {
     const user = e.getComponent(User)!;
 
     const randomRow = p.random(grid.grid);
-    const randomCol = p.random(randomRow.filter(t => t.type === TileType.empty));
+    const randomCol = p.random(randomRow.filter((t: { type: TileType; }) => t.type === TileType.empty));
     const y = grid.grid.indexOf(randomRow);
     const x = randomRow.indexOf(randomCol);
     user.setPos(x, y);

@@ -13,7 +13,7 @@ const GridSketch: React.FC = () => {
   const system = new System();
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
-    p5.createCanvas(1920, 1080).parent(canvasParentRef);
+    p5.createCanvas(800, 600).parent(canvasParentRef);
 
     const entities = [];
 

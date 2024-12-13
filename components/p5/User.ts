@@ -1,6 +1,3 @@
-import { randomUUID } from "crypto";
-import Grid from "./Grid";
-
 export default class User {
     id = "1"
     x: number | null = null

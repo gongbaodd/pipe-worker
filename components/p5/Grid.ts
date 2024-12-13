@@ -21,7 +21,7 @@ export default class Grid {
     cols: number
     grid: Tile[][]
     tileSize = 40
-    endTile = { rows: 20, cols: 20 }
+    endTile = { rows: 10, cols: 10 }
     colors = colors 
 
     constructor(width: number, height: number) {
