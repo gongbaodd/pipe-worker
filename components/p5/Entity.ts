@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IDS } from "./System";
+
 export default class Entity {
-  id: string;
+  id: IDS;
   components: Map<string, unknown>;
-  constructor(id: string) {
+  constructor(id: IDS) {
     this.id = id;
     this.components = new Map<string, unknown>();
   }
@@ -9,11 +12,11 @@ export default class Entity {
     this.components.set(component.constructor.name, component);
   }
 
-  getComponent<T>(componentClass: { new (...args: unknown[]): T }): T | undefined {
+  getComponent<T>(componentClass: { new (...args: any[]): T }): T | undefined {
     return this.components.get(componentClass.name) as T | undefined;
   }
 
-  hasComponent<T>(componentClass: { new (...args: unknown[]): T }): boolean {
+  hasComponent<T>(componentClass: { new (...args: any[]): T }): boolean {
     return this.components.has(componentClass.name);
   }
 }
