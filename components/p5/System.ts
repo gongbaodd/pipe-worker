@@ -53,8 +53,11 @@ export default class System {
       TileType.arc1, TileType.arc2, TileType.arc3, TileType.arc4
     ]
 
-    if (grid.grid[gridY][gridX]?.type === TileType.empty) {
-      grid.put(gridX, gridY, TileType.arc4, user.id)
+    try {
+      if (grid.grid[gridY][gridX].type === TileType.empty) {
+        grid.put(gridX, gridY, TileType.arc4, user.id)
+      }
+    } catch(e) {
     }
 
     p.redraw()
