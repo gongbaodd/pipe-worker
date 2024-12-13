@@ -2,6 +2,13 @@ export enum TileType {
     empty,
     ending,
     occupied,
+    vertical,
+    horizontal,
+    cross,
+    arc1,
+    arc2,
+    arc3,
+    arc4
 }
 
 export interface Tile {

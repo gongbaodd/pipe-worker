@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import p5Types from "p5"; // Import p5 types
-import Grid from "./p5/Grid";
+import Grid, { TileType } from "./p5/Grid";
 import Entity from "./p5/Entity";
 import System, { IDS } from "./p5/System";
 import User from "./p5/User";
@@ -17,10 +17,20 @@ const GridSketch: React.FC = () => {
 
     const entities = [];
 
-    const gridEntity = new Entity(IDS.grid);
-    gridEntity.addComponent(new Grid(p5.width, p5.height));
-    gridEntity.addComponent(new User());
-    entities.push(gridEntity);
+    {
+      const gridEntity = new Entity(IDS.grid);
+      const gridComponent = new Grid(p5.width, p5.height);
+      const randomRow = p5.random(gridComponent.grid);
+      const randomCol = p5.random(randomRow.filter((t: { type: TileType; }) => t.type === TileType.empty));
+      const y = gridComponent.grid.indexOf(randomRow);
+      const x = randomRow.indexOf(randomCol);
+      const userComponent = new User(x, y);
+      gridComponent.occupy(x, y, userComponent.id);
+      
+      gridEntity.addComponent(gridComponent);
+      gridEntity.addComponent(userComponent);
+      entities.push(gridEntity);
+    }
 
     system.setup(p5, entities);
   };
@@ -33,7 +43,7 @@ const GridSketch: React.FC = () => {
 
 
   const mousePressed = () => {
-
+    system.click();
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

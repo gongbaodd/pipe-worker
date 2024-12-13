@@ -28,19 +28,42 @@ export default class System {
     });
   }
 
+  click() {
+    if (!this.p5) return;
+
+    const p = this.p5;
+    const x = p.mouseX
+    const y = p.mouseY
+
+    this.entities.forEach((e) => {
+      this.cickGrid(p, e);
+    });
+  }
+
+  cickGrid(p: p5, e: Entity) {
+    if (!e.hasComponent(Grid)) return
+    const grid = e.getComponent(Grid)!;
+    const user = e.getComponent(User)!;
+
+    const x = p.mouseX
+    const y = p.mouseY
+
+    const gridX = Math.floor(x / grid.tileSize)
+    const gridY = Math.floor(y / grid.tileSize)
+
+    if (grid.grid[gridY][gridX].type === TileType.empty) {
+      grid.occupy(gridX, gridY, user.id)
+    }
+
+    p.redraw()
+  }
+
   updateGrid(p: p5, e: Entity) {
     if (!e.hasComponent(Grid)) return
     if (!e.hasComponent(User)) return
 
     const grid = e.getComponent(Grid)!;
     const user = e.getComponent(User)!;
-
-    const randomRow = p.random(grid.grid);
-    const randomCol = p.random(randomRow.filter((t: { type: TileType; }) => t.type === TileType.empty));
-    const y = grid.grid.indexOf(randomRow);
-    const x = randomRow.indexOf(randomCol);
-    user.setPos(x, y);
-    grid.occupy(x, y, user.id);
 
     p.push();
 
