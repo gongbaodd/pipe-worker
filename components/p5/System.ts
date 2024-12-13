@@ -31,12 +31,18 @@ export default class System {
     if (!e.hasComponent(Grid)) return
 
     const grid = e.getComponent(Grid)!;
+    const endTile = grid.endTile;
 
     p.push();
 
     for (let i = 0; i < grid.rows; i++) {
       for (let j = 0; j < grid.cols; j++) {
-        p.fill("#FFF");
+        if (i === endTile.rows && j === endTile.cols) {
+          p.fill("#0F0");
+        } else {
+          p.fill("#FFF");
+        }
+
         p.stroke(0);
         p.rect(
           j * grid.tileSize,
@@ -44,6 +50,8 @@ export default class System {
           grid.tileSize,
           grid.tileSize
         );
+
+
       }
     }
 

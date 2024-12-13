@@ -3,6 +3,7 @@ export default class Grid {
     cols: number
     grid: number[][]
     tileSize = 40
+    endTile = { rows: 20, cols: 20 }
 
     constructor(width: number, height: number) {
         const rows = Math.floor(height / this.tileSize);
