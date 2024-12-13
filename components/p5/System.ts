@@ -48,16 +48,17 @@ export default class System {
     const gridX = Math.floor(x / grid.tileSize)
     const gridY = Math.floor(y / grid.tileSize)
 
-    const addTypes = [
-      TileType.horizontal, TileType.vertical, TileType.cross,
-      TileType.arc1, TileType.arc2, TileType.arc3, TileType.arc4
-    ]
+    // const addTypes = [
+    //   TileType.horizontal, TileType.vertical, TileType.cross,
+    //   TileType.arc1, TileType.arc2, TileType.arc3, TileType.arc4
+    // ]
 
     try {
       if (grid.grid[gridY][gridX].type === TileType.empty) {
         grid.put(gridX, gridY, TileType.arc4, user.id)
       }
     } catch(e) {
+      console.error(e)
     }
 
     p.redraw()
