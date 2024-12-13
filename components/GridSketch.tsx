@@ -1,6 +1,7 @@
+"use client"
 import React from "react";
-import Sketch from "react-p5";
 import p5Types from "p5"; // Import p5 types
+import Sketch from "react-p5"
 
 type GridColor = p5Types.Color[][];
 
@@ -8,15 +9,18 @@ const GridSketch: React.FC = () => {
   let grid: GridColor;
   let rows: number, cols: number;
   let tileSize: number;
-  let startTile: { row: number; col: number } | null = null;
-  let endTile: { row: number; col: number } | null = null;
+  const endTile = { row: 20, col: 20 };
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     p5.createCanvas(1920, 1080).parent(canvasParentRef);
-    tileSize = 108; // Ensure square tiles (1080 / 10 = 108)
+    tileSize = 40; // Ensure square tiles (1080 / 10 = 108)
     rows = Math.floor(p5.height / tileSize);
     cols = Math.floor(p5.width / tileSize);
     grid = create2DArray(rows, cols, p5);
+
+    const { row, col } = endTile
+
+    grid[row][col] = p5.color(0, 255, 0); // Green for start
   };
 
   const draw = (p5: p5Types) => {
@@ -45,24 +49,8 @@ const GridSketch: React.FC = () => {
     }
   };
 
-  const mousePressed = (p5: p5Types) => {
-    const col = Math.floor(p5.mouseX / tileSize);
-    const row = Math.floor(p5.mouseY / tileSize);
+  const mousePressed = () => {
 
-    if (col >= 0 && col < cols && row >= 0 && row < rows) {
-      if (!startTile) {
-        startTile = { row, col };
-        grid[row][col] = p5.color(0, 255, 0); // Green for start
-      } else if (!endTile) {
-        const distance = Math.abs(startTile.row - row) + Math.abs(startTile.col - col);
-        if (distance > 5) { // Ensure the tiles are far apart
-          endTile = { row, col };
-          grid[row][col] = p5.color(255, 0, 0); // Red for end
-        } else {
-          console.log("End tile is too close to the start tile. Choose a further tile.");
-        }
-      }
-    }
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
