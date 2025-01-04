@@ -223,6 +223,8 @@ export default function Home() {
                     if (occupied.r) name += "right "
                     if (occupied.b) name += "bottom "
                     if (occupied.l) name += "left "
+
+                    if (occupied.connected) name += "connected "
                   }
 
                   return name

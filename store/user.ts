@@ -21,7 +21,8 @@ type TPipe = {
     t: boolean,
     r: boolean,
     b: boolean,
-    l: boolean
+    l: boolean,
+    connected: boolean,
 }
 
 export const useUserStore = create<{
@@ -52,7 +53,8 @@ export const useUserStore = create<{
     hoveredPipes: null,
     occupiedPipes: [{
         x: 5, y: 5,
-        t: true, r: true, b: true, l: true
+        t: true, r: true, b: true, l: true,
+        connected: true,
     }],
     residents: [],
     cards: [],
@@ -100,23 +102,28 @@ export const useUserStore = create<{
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
-                        t: true, r: true, b: true, l: true
+                        t: true, r: true, b: true, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x + 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x - 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y + 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y - 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                 ]
 
@@ -130,15 +137,18 @@ export const useUserStore = create<{
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x + 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x - 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                 ]
                 return {...state, hoveredPipes}
@@ -148,15 +158,18 @@ export const useUserStore = create<{
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y + 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y - 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                 ]
                 return {...state, hoveredPipes}
@@ -166,15 +179,18 @@ export const useUserStore = create<{
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
-                        t: true, r: false, b: false, l: true
+                        t: true, r: false, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x - 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y - 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                 ]
                 return {...state, hoveredPipes}
@@ -184,15 +200,18 @@ export const useUserStore = create<{
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
-                        t: true, r: true, b: false, l: false
+                        t: true, r: true, b: false, l: false,
+                        connected: false,
                     },
                     {
                         x: pos.x + 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y - 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                 ]
                 return {...state, hoveredPipes}
@@ -202,15 +221,18 @@ export const useUserStore = create<{
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
-                        t: false, r: false, b: true, l: true
+                        t: false, r: false, b: true, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x - 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y + 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                 ]
                 return {...state, hoveredPipes}
@@ -220,15 +242,18 @@ export const useUserStore = create<{
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
-                        t: false, r: true, b: true, l: false
+                        t: false, r: true, b: true, l: false,
+                        connected: false,
                     },
                     {
                         x: pos.x + 1, y: pos.y,
-                        t: false, r: true, b: false, l: true
+                        t: false, r: true, b: false, l: true,
+                        connected: false,
                     },
                     {
                         x: pos.x, y: pos.y + 1,
-                        t: true, r: false, b: true, l: false
+                        t: true, r: false, b: true, l: false,
+                        connected: false,
                     },
                 ]
                 return {...state, hoveredPipes}
@@ -242,10 +267,55 @@ export const useUserStore = create<{
             const { hoveredPipes, occupiedPipes } = state
             if (!hoveredPipes) return state
 
+            const newPipeConnected = hoveredPipes.some(({
+                x, y, t, r, b, l
+            }) => {
+                let connected = false
+
+                if (t) {
+                    const pipe = occupiedPipes.find(p => p.x === x && p.y === y - 1)
+                    if (pipe && pipe.connected && pipe.b) connected = true
+                }
+
+                if (r) {
+                    const pipe = occupiedPipes.find(p => p.x === x + 1 && p.y === y)
+                    if (pipe && pipe.connected && pipe.l) connected = true
+                }
+
+                if (b) {
+                    const pipe = occupiedPipes.find(p => p.x === x && p.y === y + 1)
+                    if (pipe && pipe.connected && pipe.t) connected = true
+                }
+
+                if (l) {
+                    const pipe = occupiedPipes.find(p => p.x === x - 1 && p.y === y)
+                    if (pipe && pipe.connected && pipe.r) connected = true
+                }
+
+                return connected
+            })
+
+            const newPipes = hoveredPipes.map(p => {
+                if (newPipeConnected) {
+                    return {
+                        ...p,
+                        connected: true,
+                    }
+                } else {
+                    return {
+                        ...p,
+                        connected: false,
+                    }
+                }
+            })
+
             return {
                 ...state,
                 hoveredPipes: null,
-                occupiedPipes: [...occupiedPipes, ...hoveredPipes]
+                occupiedPipes: [
+                    ...occupiedPipes, 
+                    ...newPipes,
+                ]
             }
         })
     },
