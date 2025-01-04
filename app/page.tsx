@@ -204,16 +204,32 @@ export default function Home() {
                 }
               }
 
-              const isOccupied = occupiedPipes.some(p => p.x === j && p.y === i)
+              const occupied = occupiedPipes.find(p => p.x === j && p.y === i)
 
-              return <div key={j} className={
-                isStart?
-                  "cell start": 
-                  isEnd ? "cell end": 
-                  isHovered? "cell hovered":
-                  isOccupied? "cell occupied":
-                  "cell"
+              const { cellClass } = {
+                get cellClass() {
+                  let name = "cell "
+
+                  if (isStart) name += "start "
+
+                  if (isEnd) name += "end "
+
+                  if (isHovered) name += "hovered "
+
+                  if (occupied) {
+                    name += "occupied "
+
+                    if (occupied.t) name += "top "
+                    if (occupied.r) name += "right "
+                    if (occupied.b) name += "bottom "
+                    if (occupied.l) name += "left "
+                  }
+
+                  return name
                 }
+              }
+
+              return <div key={j} className={cellClass}
                 onMouseEnter={() => hoverPipe({x: j, y: i})}
                 onClick={() => occupyPipe()}
                 ></div>
