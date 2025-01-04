@@ -269,24 +269,22 @@ export const useUserStore = create<{
 
             const pipes = [...occupiedPipes, ...hoveredPipes]
             const startPipe = pipes.find(p => p.x === state.startX && p.y === state.startY)
-            const occupiedP = [...traversePipe(startPipe as TPipe, pipes)].map(p => ({...p, connected: true}))
-            const pipesOccupied = occupiedPipes.some(p => {
-                return hoveredPipes.some(h => h.x === p.x && h.y === p.y)
-            })
+            traversePipe(startPipe as TPipe, pipes)
 
             return {
                 ...state,
                 hoveredPipes: null,
-                occupiedPipes: [...occupiedP, ...(pipesOccupied ? [] : hoveredPipes)],
+                occupiedPipes: [...pipes],
             }
 
-            function traversePipe(start: TPipe, pipes: TPipe[]): Set<TPipe> {
+            function traversePipe(start: TPipe, pipes: TPipe[]) {
                 const stack = [start]
                 const visited = new Set<TPipe>()
                 while (stack.length) {
                     const pipe = stack.pop() as TPipe
                     if (visited.has(pipe)) continue
                     visited.add(pipe)
+                    pipe.connected = true
 
                     if (pipe.t) {
                         const nextPipe = pipes.find(p => p.x === pipe.x && p.y === pipe.y - 1)
@@ -308,8 +306,6 @@ export const useUserStore = create<{
                         if (nextPipe && nextPipe.r) stack.push(nextPipe)
                     }
                 }
-
-                return visited
             }
         })
     },
