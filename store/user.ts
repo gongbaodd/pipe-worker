@@ -42,6 +42,7 @@ export const useUserStore = create<{
     setCurrentCard: (card: TileType) => void,
     resetCard: () => void,
     cutMoney: (amount: number) => void,
+    countMoney: () => void,
     hoverPipe: (pos: {x: number, y: number}) => void,
     occupyPipe: () => void
 }>((set) => ({
@@ -71,6 +72,26 @@ export const useUserStore = create<{
         ...state,
         money: state.money - amount, 
     })),
+    countMoney: () => set((state) => {
+        const { residents } = state
+        let money = 0
+
+        const nonScientist = residents.filter(res => res !== ResType.scientist)
+
+        for (const res of nonScientist) {
+            if (res === ResType.civilian) money += 10
+            if (res === ResType.worker) money += 100
+        }
+
+        for (let i = 0; i < residents.length - nonScientist.length; i++) {
+            money *= 2
+        }
+
+        return ({
+            ...state,
+            money: state.money + money,
+        })
+    }),
     setCards: () => set((state) => ({
         ...state,
         cards: [

@@ -26,7 +26,8 @@ export default function Home() {
     hoverPipe,
     hoveredPipes,
     occupiedPipes,
-    occupyPipe
+    occupyPipe,
+    countMoney,
   } = useUserStore((state) => state);
 
   useEffect(() => {
@@ -237,6 +238,7 @@ export default function Home() {
                 onClick={() => { 
                   occupyPipe()
                   resetCard()
+                  countMoney()
                 }}
                 ></div>
             })}
