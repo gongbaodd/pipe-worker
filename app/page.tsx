@@ -1,6 +1,5 @@
 "use client"
 
-import GridSketch from '@/components/GridSketch';
 import { TileType } from '@/components/p5/Grid';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -16,7 +15,7 @@ export default function Home() {
   const cards = useUserStore((state) => state.cards);
   const setCards = useUserStore((state) => state.setCards);
   const addCard = useUserStore((state) => state.addCard);
-  const useCard = useUserStore((state) => state.useCard);
+  const setCurrentCard = useUserStore((state) => state.setCurrentCard);
   const currentCard = useUserStore((state) => state.currentCard);
 
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function Home() {
                 <Image src="/cross.png" alt="cross" width={100} height={100} />
                 <Button onClick={() => {
                   cutMoney(200)
-                  useCard(card)
+                  setCurrentCard(card)
                 }}>
                   pay 400 to use it
                 </Button>
@@ -51,7 +50,7 @@ export default function Home() {
                 <Button onClick={
                   () => {
                     cutMoney(100)
-                    useCard(card)
+                    setCurrentCard(card)
                   }
                 }>
                   pay 200 to use it
@@ -65,7 +64,7 @@ export default function Home() {
                 <Button onClick={
                   () => {
                     cutMoney(100)
-                    useCard(card)
+                    setCurrentCard(card)
                   }
                 }>
                   pay 200 to use it
@@ -78,7 +77,7 @@ export default function Home() {
                 <Button onClick={
                   () => {
                     cutMoney(150)
-                    useCard(card)
+                    setCurrentCard(card)
                   }
                 }>
                   pay 150 to use it
@@ -91,7 +90,7 @@ export default function Home() {
                 <Button onClick={
                   () => {
                     cutMoney(100)
-                    useCard(card)
+                    setCurrentCard(card)
                   }
                 }>
                   pay 150 to use it
@@ -104,7 +103,7 @@ export default function Home() {
                 <Button onClick={
                   () => {
                     cutMoney(100)
-                    useCard(card)
+                    setCurrentCard(card)
                   }
                 }>
                   pay 150 to use it
@@ -117,7 +116,7 @@ export default function Home() {
                 <Button onClick={
                   () => {
                     cutMoney(100)
-                    useCard(card)
+                    setCurrentCard(card)
                   }
                 }>
                   pay 150 to use it

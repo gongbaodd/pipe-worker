@@ -23,7 +23,7 @@ export const useUserStore = create<{
     setResidents: () => void,
     setCards: () => void,
     addCard: () => void,
-    useCard: (card: TileType) => void,
+    setCurrentCard: (card: TileType) => void,
     resetCard: () => void,
     cutMoney: (amount: number) => void
 }>((set) => ({
@@ -58,7 +58,7 @@ export const useUserStore = create<{
             allCardTypes[Math.floor(Math.random() * allCardTypes.length)],
         ]
     })),
-    useCard: (card: TileType) => set((state) => ({
+    setCurrentCard: (card: TileType) => set((state) => ({
         ...state,
         currentCard: card,
     })),
