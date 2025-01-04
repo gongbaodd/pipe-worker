@@ -86,3 +86,11 @@ body {
   border: 1px solid #222;
   float: left;
 }
+
+.cell.start {
+  background-color: blue;
+}
+
+.cell.end {
+  background-color: red;
+}

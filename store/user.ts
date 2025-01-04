@@ -16,6 +16,8 @@ const allCardTypes = [
 ]
 
 export const useUserStore = create<{
+    startX: number,
+    startY: number,
     money: number, 
     residents: ResType[],
     cards: TileType[],
@@ -28,6 +30,10 @@ export const useUserStore = create<{
     cutMoney: (amount: number) => void
 }>((set) => ({
     money: 1000,
+    startX: 5,
+    startY: 5,
+    endX: 15,
+    endY: 15,
     residents: [],
     cards: [],
     currentCard: null,

@@ -8,15 +8,21 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 
 export default function Home() {
-  const money = useUserStore((state) => state.money);
-  const cutMoney = useUserStore((state) => state.cutMoney);
-  const setResidents = useUserStore((state) => state.setResidents);
-  const residents = useUserStore((state) => state.residents);
-  const cards = useUserStore((state) => state.cards);
-  const setCards = useUserStore((state) => state.setCards);
-  const addCard = useUserStore((state) => state.addCard);
-  const setCurrentCard = useUserStore((state) => state.setCurrentCard);
-  const currentCard = useUserStore((state) => state.currentCard);
+  const {
+    startX,
+    startY,
+    endX,
+    endY,
+    money,
+    cutMoney,
+    setResidents,
+    residents,
+    currentCard,
+    cards,
+    setCards,
+    addCard,
+    setCurrentCard,
+  } = useUserStore((state) => state);
 
   useEffect(() => {
     setResidents()
@@ -29,7 +35,7 @@ export default function Home() {
       <p>
         total money: {money}
       </p>
-      <div className='flex flex-row'>
+      <div className='flex flex-row'>{/* pipes */}
         {
           cards.map((card, i) => {
             if (card === TileType.cross) {
@@ -129,7 +135,7 @@ export default function Home() {
 
       <Button onClick={addCard}>-100 to buy a new card</Button>
 
-      <div>
+      <div>{/* user's card */}
         <h2>Current Card</h2>
         {currentCard && <Card>
            {(currentCard === TileType.cross) && (
@@ -154,7 +160,7 @@ export default function Home() {
           </Card>}
       </div>
 
-      <div className='flex flex-row'>
+      <div className='flex flex-row'> {/* workers */}
         {residents.map((res, i) => {
           if (res === ResType.civilian) {
             return <Card key={i}>
@@ -180,13 +186,20 @@ export default function Home() {
           }
         })}
       </div>
-      {/* <GridSketch /> */}
 
       <div className='grid-sketch'>
         {Array(20).fill(0).map((_, i) => {
           return  <div key={i} className='row'>
             {Array(20).fill(0).map((_, j) => {
-              return <div key={j} className='cell'></div>
+              const isStart = i === startY && j === startX
+              const isEnd = i === endX && j === endY
+
+              return <div key={j} className={
+                isStart?
+                  "cell start": 
+                  isEnd ? "cell end": 
+                  "cell"
+                }></div>
             })}
           </div>
         })}
