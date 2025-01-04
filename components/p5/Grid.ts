@@ -5,10 +5,10 @@ export enum TileType {
   vertical,
   horizontal,
   cross,
-  arc1,
-  arc2,
-  arc3,
-  arc4
+  arc1, // top left
+  arc2, // top right
+  arc3, // bottom left
+  arc4 // bottom right
 }
 
 export interface Tile {

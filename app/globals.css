@@ -94,3 +94,7 @@ body {
 .cell.end {
   background-color: red;
 }
+
+.cell.hovered {
+  background-color: #333;
+}

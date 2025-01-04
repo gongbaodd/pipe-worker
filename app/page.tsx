@@ -22,6 +22,8 @@ export default function Home() {
     setCards,
     addCard,
     setCurrentCard,
+    hoverPipe,
+    hoveredPipes,
   } = useUserStore((state) => state);
 
   useEffect(() => {
@@ -193,13 +195,23 @@ export default function Home() {
             {Array(20).fill(0).map((_, j) => {
               const isStart = i === startY && j === startX
               const isEnd = i === endX && j === endY
+              const { isHovered } = {
+                get isHovered() {
+                  if (!hoveredPipes) return false
+                  return hoveredPipes.some(p => p.x === j && p.y === i)
+                }
+              }
+              
 
               return <div key={j} className={
                 isStart?
                   "cell start": 
                   isEnd ? "cell end": 
+                  isHovered? "cell hovered":
                   "cell"
-                }></div>
+                }
+                onMouseEnter={() => hoverPipe({x: j, y: i})}
+                ></div>
             })}
           </div>
         })}

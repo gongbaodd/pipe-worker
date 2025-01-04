@@ -18,6 +18,9 @@ const allCardTypes = [
 export const useUserStore = create<{
     startX: number,
     startY: number,
+    endX: number,
+    endY: number,
+    hoveredPipes: {x: number, y: number}[] | null,
     money: number, 
     residents: ResType[],
     cards: TileType[],
@@ -27,13 +30,15 @@ export const useUserStore = create<{
     addCard: () => void,
     setCurrentCard: (card: TileType) => void,
     resetCard: () => void,
-    cutMoney: (amount: number) => void
+    cutMoney: (amount: number) => void,
+    hoverPipe: (pos: {x: number, y: number}) => void
 }>((set) => ({
     money: 1000,
     startX: 5,
     startY: 5,
     endX: 15,
     endY: 15,
+    hoveredPipes: null,
     residents: [],
     cards: [],
     currentCard: null,
@@ -71,5 +76,81 @@ export const useUserStore = create<{
     resetCard: () => set((state) => ({
         ...state,
         currentCard: null,
-    }))
+    })),
+    hoverPipe: (pos: {x: number, y: number}) => {
+        return set((state) => {
+            const { currentCard } = state
+
+            if (currentCard === TileType.cross) {
+                const hoveredPipes = [
+                    {x: pos.x, y: pos.y},
+                    {x: pos.x + 1, y: pos.y},
+                    {x: pos.x - 1, y: pos.y},
+                    {x: pos.x, y: pos.y + 1},
+                    {x: pos.x, y: pos.y - 1},
+                ]
+
+                return {
+                    ...state,
+                    hoveredPipes,
+                }
+            }
+
+            if (currentCard === TileType.horizontal) {
+                const hoveredPipes = [
+                    {x: pos.x, y: pos.y},
+                    {x: pos.x + 1, y: pos.y},
+                    {x: pos.x - 1, y: pos.y},
+                ]
+                return {...state, hoveredPipes}
+            }
+
+            if (currentCard === TileType.vertical) {
+                const hoveredPipes = [
+                    {x: pos.x, y: pos.y},
+                    {x: pos.x, y: pos.y + 1},
+                    {x: pos.x, y: pos.y - 1},
+                ]
+                return {...state, hoveredPipes}
+            }
+
+            if (currentCard === TileType.arc1) {// top left
+                const hoveredPipes = [
+                    {x: pos.x, y: pos.y},
+                    {x: pos.x - 1, y: pos.y},
+                    {x: pos.x, y: pos.y - 1},
+                ]
+                return {...state, hoveredPipes}
+            }
+
+            if (currentCard === TileType.arc2) {// top right
+                const hoveredPipes = [
+                    {x: pos.x, y: pos.y},
+                    {x: pos.x + 1, y: pos.y},
+                    {x: pos.x, y: pos.y - 1},
+                ]
+                return {...state, hoveredPipes}
+            }
+
+            if (currentCard === TileType.arc3) {// bottom left
+                const hoveredPipes = [
+                    {x: pos.x, y: pos.y},
+                    {x: pos.x - 1, y: pos.y},
+                    {x: pos.x, y: pos.y + 1},
+                ]
+                return {...state, hoveredPipes}
+            }
+
+            if (currentCard === TileType.arc4) {// bottom right
+                const hoveredPipes = [
+                    {x: pos.x, y: pos.y},
+                    {x: pos.x + 1, y: pos.y},
+                    {x: pos.x, y: pos.y + 1},
+                ]
+                return {...state, hoveredPipes}
+            }
+
+            return state
+        })
+    }
 }))
