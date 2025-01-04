@@ -22,6 +22,7 @@ export default function Home() {
     setCards,
     addCard,
     setCurrentCard,
+    resetCard,
     hoverPipe,
     hoveredPipes,
     occupiedPipes,
@@ -233,7 +234,10 @@ export default function Home() {
 
               return <div key={j} className={cellClass}
                 onMouseEnter={() => hoverPipe({x: j, y: i})}
-                onClick={() => occupyPipe()}
+                onClick={() => { 
+                  occupyPipe()
+                  resetCard()
+                }}
                 ></div>
             })}
           </div>
