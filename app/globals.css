@@ -70,3 +70,19 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.grid-sketch {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.grid-sketch .row {
+  clear: both;
+}
+
+.grid-sketch .cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #222;
+  float: left;
+}

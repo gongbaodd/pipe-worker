@@ -40,7 +40,7 @@ export default function Home() {
                   cutMoney(200)
                   useCard(card)
                 }}>
-                  pay 200 to use it
+                  pay 400 to use it
                 </Button>
               </Card>
             }
@@ -54,7 +54,7 @@ export default function Home() {
                     useCard(card)
                   }
                 }>
-                  pay 100 to use it
+                  pay 200 to use it
                 </Button>
               </Card>
             }
@@ -68,7 +68,7 @@ export default function Home() {
                     useCard(card)
                   }
                 }>
-                  pay 100 to use it
+                  pay 200 to use it
                 </Button>
               </Card>
             }
@@ -161,14 +161,14 @@ export default function Home() {
             return <Card key={i}>
               <Image src="/civilan.png" alt="arc1" width={100} height={100} />
               <p>
-                every turn money +1
+                every turn money +10
               </p>
             </Card>
           }
           if (res === ResType.worker) {
             return <Card key={i}><Image src="/worker.png" alt="arc1" width={100} height={100} />
               <p>
-                every turn money +10
+                every turn money +100
               </p>
             </Card>
           }
@@ -181,7 +181,17 @@ export default function Home() {
           }
         })}
       </div>
-      <GridSketch />
+      {/* <GridSketch /> */}
+
+      <div className='grid-sketch'>
+        {Array(20).fill(0).map((_, i) => {
+          return  <div key={i} className='row'>
+            {Array(20).fill(0).map((_, j) => {
+              return <div key={j} className='cell'></div>
+            })}
+          </div>
+        })}
+      </div>
     </main>
   );
 }
