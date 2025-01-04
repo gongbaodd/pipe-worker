@@ -267,55 +267,46 @@ export const useUserStore = create<{
             const { hoveredPipes, occupiedPipes } = state
             if (!hoveredPipes) return state
 
-            const newPipeConnected = hoveredPipes.some(({
-                x, y, t, r, b, l
-            }) => {
-                let connected = false
-
-                if (t) {
-                    const pipe = occupiedPipes.find(p => p.x === x && p.y === y - 1)
-                    if (pipe && pipe.connected && pipe.b) connected = true
-                }
-
-                if (r) {
-                    const pipe = occupiedPipes.find(p => p.x === x + 1 && p.y === y)
-                    if (pipe && pipe.connected && pipe.l) connected = true
-                }
-
-                if (b) {
-                    const pipe = occupiedPipes.find(p => p.x === x && p.y === y + 1)
-                    if (pipe && pipe.connected && pipe.t) connected = true
-                }
-
-                if (l) {
-                    const pipe = occupiedPipes.find(p => p.x === x - 1 && p.y === y)
-                    if (pipe && pipe.connected && pipe.r) connected = true
-                }
-
-                return connected
-            })
-
-            const newPipes = hoveredPipes.map(p => {
-                if (newPipeConnected) {
-                    return {
-                        ...p,
-                        connected: true,
-                    }
-                } else {
-                    return {
-                        ...p,
-                        connected: false,
-                    }
-                }
-            })
+            const pipes = [...occupiedPipes, ...hoveredPipes]
+            const startPipe = pipes.find(p => p.x === state.startX && p.y === state.startY)
+            const occupiedP = traversePipe(startPipe as TPipe, pipes)
 
             return {
                 ...state,
                 hoveredPipes: null,
-                occupiedPipes: [
-                    ...occupiedPipes, 
-                    ...newPipes,
-                ]
+                occupiedPipes: [...occupiedP].map(p => ({...p, connected: true}))
+            }
+
+            function traversePipe(start: TPipe, pipes: TPipe[]): Set<TPipe> {
+                const stack = [start]
+                const visited = new Set<TPipe>()
+                while (stack.length) {
+                    const pipe = stack.pop() as TPipe
+                    if (visited.has(pipe)) continue
+                    visited.add(pipe)
+
+                    if (pipe.t) {
+                        const nextPipe = pipes.find(p => p.x === pipe.x && p.y === pipe.y - 1)
+                        if (nextPipe && nextPipe.b) stack.push(nextPipe)
+                    }
+
+                    if (pipe.r) {
+                        const nextPipe = pipes.find(p => p.x === pipe.x + 1 && p.y === pipe.y)
+                        if (nextPipe && nextPipe.l) stack.push(nextPipe)
+                    }
+
+                    if (pipe.b) {
+                        const nextPipe = pipes.find(p => p.x === pipe.x && p.y === pipe.y + 1)
+                        if (nextPipe && nextPipe.t) stack.push(nextPipe)
+                    }
+
+                    if (pipe.l) {
+                        const nextPipe = pipes.find(p => p.x === pipe.x - 1 && p.y === pipe.y)
+                        if (nextPipe && nextPipe.r) stack.push(nextPipe)
+                    }
+                }
+
+                return visited
             }
         })
     },
