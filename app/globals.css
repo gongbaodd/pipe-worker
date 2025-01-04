@@ -87,9 +87,6 @@ body {
   float: left;
 }
 
-.cell.start {
-  background-color: blue;
-}
 
 .cell.end {
   background-color: red;
@@ -103,6 +100,10 @@ body {
   background-color: lightblue;
 
   position: relative;
+
+  &.start {
+    background-color: blue;
+  }
 
   &.top.bottom.left.right::after {
     content: '+';
