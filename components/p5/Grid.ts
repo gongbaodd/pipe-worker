@@ -7,8 +7,8 @@ export enum TileType {
   cross,
   arc1, // top left
   arc2, // top right
-  arc3, // bottom left
-  arc4 // bottom right
+  arc3, // bottom right
+  arc4 // bottom left
 }
 
 export interface Tile {

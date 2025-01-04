@@ -217,7 +217,7 @@ export const useUserStore = create<{
                 return {...state, hoveredPipes}
             }
 
-            if (currentCard === TileType.arc3) {// bottom left
+            if (currentCard === TileType.arc4) {// bottom left
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,
@@ -238,7 +238,7 @@ export const useUserStore = create<{
                 return {...state, hoveredPipes}
             }
 
-            if (currentCard === TileType.arc4) {// bottom right
+            if (currentCard === TileType.arc3) {// bottom right
                 const hoveredPipes = [
                     {
                         x: pos.x, y: pos.y,

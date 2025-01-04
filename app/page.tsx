@@ -47,7 +47,7 @@ export default function Home() {
               return <Card key={i}>
                 <Image src="/cross.png" alt="cross" width={100} height={100} />
                 <Button onClick={() => {
-                  cutMoney(200)
+                  cutMoney(400)
                   setCurrentCard(card)
                 }}>
                   pay 400 to use it
@@ -60,7 +60,7 @@ export default function Home() {
                 <Image src="/h.png" alt='horizontal' width={100} height={100} />
                 <Button onClick={
                   () => {
-                    cutMoney(100)
+                    cutMoney(200)
                     setCurrentCard(card)
                   }
                 }>
@@ -74,7 +74,7 @@ export default function Home() {
                 <Image src="/v.png" alt="verical" width={100} height={100} />
                 <Button onClick={
                   () => {
-                    cutMoney(100)
+                    cutMoney(200)
                     setCurrentCard(card)
                   }
                 }>
@@ -100,7 +100,7 @@ export default function Home() {
               return <Card key={i}><Image src="/t2.png" alt="tri-2" width={100} height={100} />
                 <Button onClick={
                   () => {
-                    cutMoney(100)
+                    cutMoney(150)
                     setCurrentCard(card)
                   }
                 }>
@@ -113,7 +113,7 @@ export default function Home() {
               return <Card key={i}><Image src="/t3.png" alt="tri-3" width={100} height={100} />
                 <Button onClick={
                   () => {
-                    cutMoney(100)
+                    cutMoney(150)
                     setCurrentCard(card)
                   }
                 }>
@@ -126,7 +126,7 @@ export default function Home() {
               return <Card key={i}><Image src="/t4.png" alt="tri-4" width={100} height={100} />
                 <Button onClick={
                   () => {
-                    cutMoney(100)
+                    cutMoney(150)
                     setCurrentCard(card)
                   }
                 }>
