@@ -98,3 +98,7 @@ body {
 .cell.hovered {
   background-color: #333;
 }
+
+.cell.occupied {
+  background-color: lightblue;
+}

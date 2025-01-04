@@ -21,6 +21,7 @@ export const useUserStore = create<{
     endX: number,
     endY: number,
     hoveredPipes: {x: number, y: number}[] | null,
+    occupiedPipes: {x: number, y: number}[],
     money: number, 
     residents: ResType[],
     cards: TileType[],
@@ -39,6 +40,8 @@ export const useUserStore = create<{
     endX: 15,
     endY: 15,
     hoveredPipes: null,
+    occupiedPipes: [{x: 5, y: 5}],
+    occupyPipe: () => {},
     residents: [],
     cards: [],
     currentCard: null,
@@ -152,5 +155,17 @@ export const useUserStore = create<{
 
             return state
         })
-    }
+    },
+    occupyPipe: () => {
+        return set((state) => {
+            const { hoveredPipes, occupiedPipes } = state
+            if (!hoveredPipes) return state
+
+            return {
+                ...state,
+                hoveredPipes: null,
+                occupiedPipes: [...occupiedPipes, ...hoveredPipes]
+            }
+        })
+    },
 }))
