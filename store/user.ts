@@ -31,6 +31,7 @@ export const useUserStore = create<{
     endX: number,
     endY: number,
     hoveredPipes: TPipe[] | null,
+    isHoveredConnected: boolean,
     occupiedPipes: TPipe[],
     money: number, 
     residents: ResType[],
@@ -52,6 +53,7 @@ export const useUserStore = create<{
     endX: 15,
     endY: 15,
     hoveredPipes: null,
+    isHoveredConnected: false,
     occupiedPipes: [{
         x: 5, y: 5,
         t: true, r: true, b: true, l: true,
@@ -73,7 +75,10 @@ export const useUserStore = create<{
         money: state.money - amount, 
     })),
     countMoney: () => set((state) => {
-        const { residents } = state
+        const { residents, isHoveredConnected } = state
+
+        if (!isHoveredConnected) return state
+
         let money = 0
 
         const nonScientist = residents.filter(res => res !== ResType.scientist)
@@ -89,6 +94,7 @@ export const useUserStore = create<{
 
         return ({
             ...state,
+            isHoveredConnected: false,
             money: state.money + money,
         })
     }),
@@ -292,9 +298,12 @@ export const useUserStore = create<{
             const startPipe = pipes.find(p => p.x === state.startX && p.y === state.startY)
             traversePipe(startPipe as TPipe, pipes)
 
+            const isHoveredConnected = hoveredPipes.some(p => p.connected)
+
             return {
                 ...state,
                 hoveredPipes: null,
+                isHoveredConnected,
                 occupiedPipes: [...pipes],
             }
 
