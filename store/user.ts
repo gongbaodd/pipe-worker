@@ -70,10 +70,17 @@ export const useUserStore = create<{
             allResTypes[Math.floor(Math.random() * allResTypes.length)]
         ]
     })),
-    cutMoney: (amount: number) => set((state) => ({
-        ...state,
-        money: state.money - amount, 
-    })),
+    cutMoney: (amount: number) => set((state) => { 
+
+        const money = state.money - amount
+
+        if (money < 0) alert('not enough money, you lose!')
+        
+        return ({
+            ...state,
+            money: state.money - amount, 
+        });
+    }),
     countMoney: () => set((state) => {
         const { residents, isHoveredConnected } = state
 
@@ -298,6 +305,11 @@ export const useUserStore = create<{
             const startPipe = pipes.find(p => p.x === state.startX && p.y === state.startY)
             traversePipe(startPipe as TPipe, pipes)
 
+            const endPipe = pipes.find(p => p.x === state.endX && p.y === state.endY)
+            if (endPipe && endPipe.connected) {
+                alert('you win!')
+            }
+            
             const isHoveredConnected = hoveredPipes.some(p => p.connected)
 
             return {
